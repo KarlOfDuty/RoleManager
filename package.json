@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/KarlOfDuty/DiscordBot/issues"
   },
-  "homepage": "https://github.com/KarlOfDuty/DiscordBot#readme"
+  "homepage": "https://github.com/KarlOfDuty/DiscordBot#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  }
 }
