@@ -1,5 +1,5 @@
 {
-  "_description": "The bot token from https://discordapp.com/developers/".,
+  "_description": "The bot token from https://discordapp.com/developers/",
   "token": "add-your-token-here",
 
   "_description": "Prefix for discord commands.",
