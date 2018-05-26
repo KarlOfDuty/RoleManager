@@ -1,0 +1,14 @@
+{
+  "_description": "The bot token from https://discordapp.com/developers/",
+  "token": "add-your-token-here",
+
+  "_description": "Prefix for discord commands.",
+  "prefix": "+",
+
+  "_description": "Keys are the arguments users use in their commands and values are the names of the corresponding discord roles. Remember to make the bot a higher rank than these roles.",
+  "roles": [
+    { "scp": "SCP:SL Player" },
+    { "dystopia": "Dystopia Player" },
+    { "ttt": "TTT Player" }
+  ]
+}
