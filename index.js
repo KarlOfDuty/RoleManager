@@ -1,10 +1,11 @@
 const Discord = require('discord.js');
-const { prefix, token, roles } = require('./config.json');
+const { token, prefix, avatarURL, roles } = require('./config.json');
 
 const client = new Discord.Client();
 
 client.on('ready', () => {
     console.log('Discord connection established!');
+    client.user.setAvatar(avatarURL);
 });
 
 client.on('message', message => {
