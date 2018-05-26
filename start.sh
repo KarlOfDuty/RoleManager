@@ -1,0 +1,1 @@
+screen -S discordbot node .
