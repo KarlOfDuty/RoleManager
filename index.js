@@ -50,6 +50,7 @@ client.on('message', message => {
                     });
                     message.channel.send('Role added, ' + message.author + '!');
                     console.log('Executed "' + message.content + '" successfully on ' + message.member.user.tag + '.');
+                    return;
                 }
             }
             message.channel.send('Invalid role provided, ' + message.author + '!');
