@@ -28,7 +28,7 @@ You need to enter your bot token for the bot to function. You can find it on htt
 "prefix": "+"
 ```
 
-The command prefix for this bot, you can change it to for instance ! for !join or - for -join depending on other bots clashing with the current one.
+The command prefix for this bot, you can change it to for instance ! for !join or - for -join depending on other bots clashing with the current prefix.
 
 ```json
 "avatarURL": "https://karlofduty.com/img/tardisIcon.jpg"
