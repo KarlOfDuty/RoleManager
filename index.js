@@ -17,7 +17,7 @@ client.on('message', message => {
     const command = args.shift().toLowerCase();
 
     //Join command
-    if (command === 'join') {
+    if (command === 'join' || command === 'add') {
         //Cancel if there are no arguments
         if (!args.length) {
             return message.channel.send('You didn\'t specify a role, ' + message.author + '!');
@@ -58,7 +58,7 @@ client.on('message', message => {
         }
     }
     //Leave command
-    if (command === 'leave') {
+    if (command === 'leave' ||command === 'remove') {
         //Cancel if there are no arguments
         if (!args.length) {
             return message.channel.send('You didn\'t specify a role, ' + message.author + '!');
