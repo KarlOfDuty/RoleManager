@@ -4,9 +4,9 @@ A Discord bot which allows users to add or remove roles using commands.
 
 ## Commands
 
-`+join [role]` - Grants a member that role.
+`+join [role]` or `+add [role]` - Grants a member that role.
 
-`+leave [role]` - Removes a role from that member.
+`+leave [role]` or `+remove [role]` - Removes a role from that member.
 
 ## Config settings:
 
