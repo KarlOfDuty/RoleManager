@@ -8,7 +8,13 @@ A Discord bot which allows users to add or remove roles using commands.
 
 `+leave [role]` or `+remove [role]` - Removes a role from that member.
 
-## Config settings:
+## Installation
+
+1. Install Node either by direct download: https://nodejs.org/en/download/ or via package manager in linux distros: https://nodejs.org/en/download/package-manager/
+2. Set up your config according to the guide below.
+3. Run either via start.bat/start.sh or by entering `node <path to root dir>` in the terminal.
+
+## Config settings
 
 Rename default_config.json to config.json before you start.
 
