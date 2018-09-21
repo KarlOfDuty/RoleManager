@@ -38,7 +38,7 @@ client.on("message", (message) =>
                 //Set role for user
                 const key = Object.keys(roles[i])[0];
                 const role = message.guild.roles.find("name", roles[i][key]);
-                message.member.addRole(role).catch(err =>
+                message.member.addRole(role).catch((err) =>
                 {
                     console.error(err);
                     message.channel.send("Internal error occured, does the bot have permission to do that?");
