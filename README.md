@@ -26,7 +26,7 @@ I also recommend having a look at [pm2](http://pm2.keymetrics.io/) to manage nod
 
 ## Config settings
 
-Rename default_config.json to config.json before you start.
+Rename default_config.json to config.json before you start. (This is a security method to make sure no bot tokens are leaked with git commits)
 
 -----------------------------
 
