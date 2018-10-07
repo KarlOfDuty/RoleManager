@@ -20,7 +20,9 @@ A Discord bot which allows users to add or remove roles using commands.
 2. Set up your config according to the guide below.
 3. Run either via start.bat/start.sh or by entering `node <path to root dir>` in the terminal.
 
-If it complains that it does not reqognize some discord things you may need to run `npm install discord.js` in the bot folder.
+If it complains that it does not recognize some discord things you may need to run `npm install discord.js` in the bot folder.
+
+I also recommend having a look at [pm2](http://pm2.keymetrics.io/) to manage node.js scripts such as this one. It will restart them if they crash and let you easily stop and start them.
 
 ## Config settings
 
