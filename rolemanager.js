@@ -182,6 +182,10 @@ discordClient.on("message", (message) =>
     }
 });
 
+discordClient.on("error", (e) => console.error(e));
+discordClient.on("warn", (e) => console.warn(e));
+discordClient.on("debug", (e) => console.info(e));
+
 discordClient.login(token);
 
 // Runs when the server shuts down
