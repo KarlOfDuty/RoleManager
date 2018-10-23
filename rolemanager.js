@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const { token, prefix, avatarURL, roles } = require("./config.json");
-var fs = require('fs');
+var fs = require("fs");
 
 const discordClient = new Discord.Client();
 
@@ -197,5 +197,5 @@ function shutdown()
 process.on("exit", () => shutdown());
 process.on("SIGINT", () => shutdown());
 process.on("SIGUSR1", () => shutdown());
-process.on("SIGUSR2", () =>shutdown());
+process.on("SIGUSR2", () => shutdown());
 process.on("SIGHUP", () => shutdown());
