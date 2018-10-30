@@ -15,6 +15,18 @@ function manageUser(message, roleTag, addRole)
         {
             doesNotExist = false;
             const role = message.guild.roles.find("name", roles[i][key]);
+            if(role == null)
+            {
+                message.channel.send("```diff\n- Error occured, does that role exist?```");
+                return;
+            }
+
+            if(message.member == null)
+            {
+                message.channel.send("```diff\n- Error occured, sender of that message was null. Discord claims you do not exist. Debug info: " + message.member + " " + message.author + "```");
+                return;
+            }
+
             if(addRole)
             {
                 message.member.addRole(role).catch((err) =>
@@ -84,7 +96,7 @@ function helpCommand(message)
         const key = Object.keys(roles[i])[0];
         helpMessage += ("\n- < " + prefix + "leave " + key + " > removes the role < " + roles[i][key] + " >");
     }
-    helpMessage += ("\n- < " + prefix + "join all > removes all of the above roles");
+    helpMessage += ("\n- < " + prefix + "leave all > removes all of the above roles");
     helpMessage += ("\n");
     helpMessage += ("\n# Admin commands");
     helpMessage += ("\n- < " + prefix + "addrole (command) (role name) > adds a new command to rolemanager.");
@@ -184,7 +196,7 @@ discordClient.on("message", (message) =>
 
 discordClient.on("error", (e) => console.error(e));
 discordClient.on("warn", (e) => console.warn(e));
-discordClient.on("debug", (e) => console.info(e));
+//discordClient.on("debug", (e) => console.info(e));
 
 discordClient.login(token);
 
