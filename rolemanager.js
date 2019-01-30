@@ -78,27 +78,38 @@ function pingCommand(message, roleTag)
 
             if (role.mentionable)
             {
-                message.channel.send("<@&" + role.id + ">");
+                const embed = {
+                    "description": `Ping brought to you by <@${message.member.id}>`,
+                    "color": 3768539
+                };
+                message.channel.send("<@&" + role.id + ">", { embed }).then(message.delete().catch(console.error)).catch((err) =>
+                {
+                    console.error("ERROR: Could not send response message. " + err);
+                });
             }
             else
             {
                 role.setMentionable(true).then(() =>
                 {
-                    message.channel.send("<@&" + role.id + ">").then(() =>
+                    const embed = {
+                        "description": `Ping brought to you by <@${message.member.id}>`,
+                        "color": 3768539
+                    };
+                    message.channel.send("<@&" + role.id + ">", { embed }).then(() =>
                     {
                         role.setMentionable(false).catch(() =>
                         {
                             message.channel.send("```diff\n- Error occured, does the bot have permission to manage that role?```");
                         });
-                    }).catch(() =>
+                    }).catch((err) =>
                     {
-                        console.log("ERROR: Could not send response message.");
+                        console.error("Could not send response message. " + err);
                         role.setMentionable(false).catch(() =>
                         {
                             message.channel.send("```diff\n- Error occured, does the bot have permission to manage that role?```");
                         });
                     });
-
+                    message.delete().catch(console.error);
                 }).catch(() =>
                 {
                     message.channel.send("```diff\n- Error occured, does the bot have permission to manage that role?```");
@@ -120,7 +131,7 @@ function removeRoleCommand(message, command)
         if(key === command)
         {
             roles.splice(i, 1);
-            fs.writeFile("config.json", JSON.stringify({ token, prefix, avatarURL, roles }, null, 4), (err) =>
+            fs.writeFile("roles.json", JSON.stringify(roles, null, 4), (err) =>
             {
                 if (err)
                 {
@@ -149,14 +160,14 @@ function helpCommand(message)
     }
     helpMessage += ("\n- < " + prefix + "join all > gives all of the above roles.");
     helpMessage += ("\n");
-    helpMessage += ("\n- < " + prefix + "leave (role) > removes any of the above roles.");
+    helpMessage += ("\n- < " + prefix + "leave (tag) > removes any of the above roles.");
     if (hasPermission(message, "addrole") || hasPermission(message, "removerole") || hasPermission(message, "ping"))
     {
         helpMessage += ("\n");
         helpMessage += ("\n# Admin commands");
-        helpMessage += ("\n- < " + prefix + "addrole (keyword for commands) (full discord role name) > adds a new role to rolemanager.");
-        helpMessage += ("\n- < " + prefix + "removerole (role) > removes a role from rolemanager.");
-        helpMessage += ("\n- < " + prefix + "ping (role) > pings a normally unpingable role.");
+        helpMessage += ("\n- < " + prefix + "addrole (tag) (role) > adds a new role to rolemanager.");
+        helpMessage += ("\n- < " + prefix + "removerole (tag) > removes a role from rolemanager.");
+        helpMessage += ("\n- < " + prefix + "ping (tag) > pings a normally unpingable role.");
     }
     helpMessage += "\n```";
     message.channel.send(helpMessage);
