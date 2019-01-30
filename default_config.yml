@@ -1,0 +1,45 @@
+### The following is the config settings I personally use as an example on how to set it up.
+
+# Your bot token
+token: ""
+
+# Prefix for discord commands
+prefix: "+"
+
+# Sends more console messages
+verbose: false
+
+# Sets which channels users can use commands in and which users have permission to use the commands.
+# Permissions can be given to Discord roles and individual Discord users. All of the config arrays use IDs, not names.
+# Set to "*" to allow everything.
+commands:
+    join:
+        channels: [ "449876787162251285" ]
+        permissions:
+            roles: [ "*" ]
+            users: []
+    leave:
+        channels: [ "449876787162251285" ]
+        permissions:
+            roles: [ "*" ]
+            users: []
+    help:
+        channels: [ "449876787162251285" ]
+        permissions:
+            roles: [ "*" ]
+            users: []
+    addrole:
+        channels: [ "*" ]
+        permissions:
+            roles: [ "430474354875432960", "478633725534666752", "439020448710262784", "448776874492035083", "448775229381279774" ]
+            users: []
+    removerole:
+        channels: [ "*" ]
+        permissions:
+            roles: [ "430474354875432960", "478633725534666752", "439020448710262784", "448776874492035083", "448775229381279774" ]
+            users: []
+    ping:
+        channels: [ "*" ]
+        permissions:
+            roles: [ "430474354875432960", "478633725534666752", "439020448710262784", "448776874492035083", "448775229381279774" ]
+            users: []
