@@ -152,11 +152,13 @@ function helpCommand(message)
     helpMessage += ("\n");
     helpMessage += ("\n- < " + prefix + "leave (role) > removes any of the above roles.");
     if (hasPermission(message, "addrole") || hasPermission(message, "removerole") || hasPermission(message, "ping"))
-    helpMessage += ("\n");
-    helpMessage += ("\n# Admin commands");
-    helpMessage += ("\n- < " + prefix + "addrole (keyword for commands) (full discord role name) > adds a new role to rolemanager.");
-    helpMessage += ("\n- < " + prefix + "removerole (role) > removes a role from rolemanager.");
-    helpMessage += ("\n- < " + prefix + "ping (role) > pings a normally unpingable role.");
+    {
+        helpMessage += ("\n");
+        helpMessage += ("\n# Admin commands");
+        helpMessage += ("\n- < " + prefix + "addrole (keyword for commands) (full discord role name) > adds a new role to rolemanager.");
+        helpMessage += ("\n- < " + prefix + "removerole (role) > removes a role from rolemanager.");
+        helpMessage += ("\n- < " + prefix + "ping (role) > pings a normally unpingable role.");
+    }
     helpMessage += "\n```";
     message.channel.send(helpMessage);
 }
