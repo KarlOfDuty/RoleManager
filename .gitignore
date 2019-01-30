@@ -6,3 +6,7 @@ config.json
 \.idea/
 
 config\.yml
+
+obj/
+
+bin/

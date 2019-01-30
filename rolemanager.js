@@ -1,6 +1,9 @@
 const Discord = require("discord.js");
-const { token, prefix, avatarURL, roles } = require("./config.json");
+const roles = require("./roles.json");
 var fs = require("fs");
+const YAML = require("yaml");
+const config = fs.readFileSync("./config.yml", "utf8");
+const { token, prefix, commands } = YAML.parse(config);
 
 const discordClient = new Discord.Client();
 
@@ -13,6 +16,7 @@ function manageUser(message, roleTag, addRole)
         const key = Object.keys(roles[i])[0];
         if (key === roleTag || roleTag === "all")
         {
+            console.log("Executing \"" + message.content + "\" on " + message.member.user.tag + ".");
             doesNotExist = false;
             const role = message.guild.roles.find("name", roles[i][key]);
             if(role == null)
@@ -29,26 +33,81 @@ function manageUser(message, roleTag, addRole)
 
             if(addRole)
             {
-                message.member.addRole(role).catch((err) =>
+                message.member.addRole(role).then(() =>
                 {
-                    console.error(err);
-                    message.channel.send("```diff\n- Error occured, does the bot have permission to do that?```");
+                    message.channel.send("```diff\n+ Role \"" + role.name + "\" granted.```");
+                }).catch(() =>
+                {
+                    message.channel.send("```diff\n- Error occured, does the bot have permission to manage that role?```");
                 });
-                message.channel.send("```diff\n+ Role \"" + role.name + "\" granted.```");
             }
             else
             {
-                message.member.removeRole(role).catch((err) =>
+                message.member.removeRole(role).then(() =>
                 {
-                    console.error(err);
-                    message.channel.send("```diff\n- Error occured, does the bot have permission to do that?```");
+                    message.channel.send("```diff\n+ Role \"" + role.name + "\" revoked.```");
+                }).catch(() =>
+                {
+                    message.channel.send("```diff\n- Error occured, does the bot have permission to manage that role?```");
                 });
-                message.channel.send("```diff\n+ Role \"" + role.name + "\" revoked.```");
             }
-            console.log("Executed \"" + message.content + "\" successfully on " + message.member.user.tag + ".");
         }
     }
     if(doesNotExist)
+    {
+        message.channel.send("```diff\n- Invalid role provided.```");
+    }
+}
+
+function pingCommand(message, roleTag)
+{
+    var doesNotExist = true;
+    //Finds the role the user requested from the config
+    for (var i = 0; i < roles.length; i++)
+    {
+        const key = Object.keys(roles[i])[0];
+        if (key === roleTag)
+        {
+            doesNotExist = false;
+            const role = message.guild.roles.find("name", roles[i][key]);
+            if (role == null)
+            {
+                message.channel.send("```diff\n- Error occured, does that role exist?```");
+                return;
+            }
+
+            if (role.mentionable)
+            {
+                message.channel.send(role);
+            }
+            else
+            {
+                role.setMentionable(true).then(() =>
+                {
+                    message.channel.send(role).then(() =>
+                    {
+                        role.setMentionable(false).catch(() =>
+                        {
+                            message.channel.send("```diff\n- Error occured, does the bot have permission to manage that role?```");
+                        });
+                    }).catch(() =>
+                    {
+                        console.log("ERROR: Could not send response message.");
+                        role.setMentionable(false).catch(() =>
+                        {
+                            message.channel.send("```diff\n- Error occured, does the bot have permission to manage that role?```");
+                        });
+                    });
+
+                }).catch(() =>
+                {
+                    message.channel.send("```diff\n- Error occured, does the bot have permission to manage that role?```");
+                });
+                message.channel.send("```diff\n+ Role \"" + role.name + "\" revoked.```");
+            }
+        }
+    }
+    if (doesNotExist)
     {
         message.channel.send("```diff\n- Invalid role provided.```");
     }
@@ -89,18 +148,15 @@ function helpCommand(message)
         const key = Object.keys(roles[i])[0];
         helpMessage += ("\n- < " + prefix + "join " + key + " > gives the role < " + roles[i][key] + " >");
     }
-    helpMessage += ("\n- < " + prefix + "join all > gives all of the above roles");
+    helpMessage += ("\n- < " + prefix + "join all > gives all of the above roles.");
     helpMessage += ("\n");
-    for(var i = 0; i < roles.length; i++)
-    {
-        const key = Object.keys(roles[i])[0];
-        helpMessage += ("\n- < " + prefix + "leave " + key + " > removes the role < " + roles[i][key] + " >");
-    }
-    helpMessage += ("\n- < " + prefix + "leave all > removes all of the above roles");
+    helpMessage += ("\n- < " + prefix + "leave (role) > removes any of the above roles.");
+    if (hasPermission(message, "addrole") || hasPermission(message, "removerole") || hasPermission(message, "ping"))
     helpMessage += ("\n");
     helpMessage += ("\n# Admin commands");
-    helpMessage += ("\n- < " + prefix + "addrole (command) (role name) > adds a new command to rolemanager.");
-    helpMessage += ("\n- < " + prefix + "removerole (command) > removes a command from rolemanager");
+    helpMessage += ("\n- < " + prefix + "addrole (keyword for commands) (full discord role name) > adds a new role to rolemanager.");
+    helpMessage += ("\n- < " + prefix + "removerole (role) > removes a role from rolemanager.");
+    helpMessage += ("\n- < " + prefix + "ping (role) > pings a normally unpingable role.");
     helpMessage += "\n```";
     message.channel.send(helpMessage);
 }
@@ -116,7 +172,7 @@ function addRoleCommand(message, command, role)
         }
     }
     roles.push(JSON.parse("{\"" + command + "\":\"" + role +"\"}"));
-    fs.writeFile("config.json", JSON.stringify({ token, prefix, avatarURL, roles }, null, 4), (err) =>
+    fs.writeFile("roles.json", JSON.stringify(roles, null, 4), (err) =>
     {
         if (err)
         {
@@ -129,10 +185,44 @@ function addRoleCommand(message, command, role)
         }
     });
 }
+
+function hasPermission(message, command)
+{
+    if (!commands[command])
+    {
+        return false;
+    }
+
+    if (!commands[command].channels.includes(message.channel.id) && !commands[command].channels.includes("*"))
+    {
+        return false;
+    }
+
+    if (commands[command].permissions.roles.includes("*") || commands[command].permissions.users.includes("*"))
+    {
+        return true;
+    }
+
+    if (commands[command].permissions.users.includes(message.member.id))
+    {
+        return true;
+    }
+
+    var memberRoles = message.member.roles;
+    for (var [roleID, role] of memberRoles)
+    {
+        if (commands[command].permissions.roles.includes(roleID))
+        {
+            return true;
+        }
+    }
+    message.channel.send("```diff\n- You are not allowed to do that.```");
+    return false;
+}
+
 discordClient.on("ready", () =>
 {
     console.log("Discord connection established!");
-    discordClient.user.setAvatar(avatarURL);
     discordClient.user.setActivity(prefix + "help",
     {
         type: "LISTENING"
@@ -150,6 +240,13 @@ discordClient.on("message", (message) =>
     //Cut message into base command and arguments
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
+
+    // Abort if no permission
+    if (!hasPermission(message, command))
+    {
+        return;
+    }
+
     switch(command)
     {
         case "join":
@@ -165,6 +262,13 @@ discordClient.on("message", (message) =>
                 return message.channel.send("```diff\n- You didn't specify a role.```");
             }
             manageUser(message, args.shift().toLowerCase(), false);
+            break;
+        case "ping":
+            if (!args.length)
+            {
+                return message.channel.send("```diff\n- You didn't specify a role.```");
+            }
+            pingCommand(message, args.shift().toLowerCase());
             break;
         case "addrole":
             if (args.length < 2)
