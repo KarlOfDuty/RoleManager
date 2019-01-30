@@ -4,15 +4,19 @@ A Discord bot which allows users to add or remove roles using commands.
 
 ## Commands
 
-`join [role]` - Grants a member that role.
+`join <tag>` - Grants a member the role represented by this tag.
 
-`leave [role]` - Removes a role from that member.
+`leave <tag>` - Removes a role from that member.
 
 `help` - Shows a help window with command information.
 
-`addrole <command> <role name>` - Adds a new role command to the bot.
+![](readmeImage.jpg)
 
-`removerole <command>` - Removes a role command from the bot.
+`addrole <new tag> <role name>` - Adds a new role command to the bot.
+
+`removerole <tag>` - Removes a role command from the bot.
+
+`ping <tag>` - Pings an unpingable role (Requires manage roles permission).
 
 ## Installation
 
@@ -20,48 +24,57 @@ A Discord bot which allows users to add or remove roles using commands.
 2. Set up your config according to the guide below.
 3. Run either via start.bat/start.sh or by entering `node <path to root dir>` in the terminal.
 
-If it complains that it does not recognize some discord things you may need to run `npm install discord.js` in the bot folder.
+If it complains that it cannot find all components you may need to run `npm install discord.js` and `npm install discord.js` in the bot folder.
 
 I also recommend having a look at [pm2](http://pm2.keymetrics.io/) to manage node.js scripts such as this one. It will restart them if they crash and let you easily stop and start them.
 
 ## Config settings
 
-Rename default_config.json to config.json before you start. (This is a security method to make sure no bot tokens are leaked with git commits)
+This is the default included config:
+```yaml
+### The following is the config settings I personally use as an example on how to set it up.
 
------------------------------
+# Your bot token
+token: ""
 
-```json
-"token": "add-your-token-here"
+# Prefix for discord commands
+prefix: "+"
+
+# Sends more console messages
+verbose: false
+
+# Sets which channels users can use commands in and which users have permission to use the commands.
+# Permissions can be given to Discord roles and individual Discord users. All of the config arrays use IDs, not names.
+# Set to "*" to allow everything.
+commands:
+    join:
+        channels: [ "449876787162251285" ]
+        permissions:
+            roles: [ "*" ]
+            users: []
+    leave:
+        channels: [ "449876787162251285" ]
+        permissions:
+            roles: [ "*" ]
+            users: []
+    help:
+        channels: [ "449876787162251285" ]
+        permissions:
+            roles: [ "*" ]
+            users: []
+    addrole:
+        channels: [ "*" ]
+        permissions:
+            roles: [ "430474354875432960", "478633725534666752", "439020448710262784", "448776874492035083", "448775229381279774" ]
+            users: []
+    removerole:
+        channels: [ "*" ]
+        permissions:
+            roles: [ "430474354875432960", "478633725534666752", "439020448710262784", "448776874492035083", "448775229381279774" ]
+            users: []
+    ping:
+        channels: [ "*" ]
+        permissions:
+            roles: [ "430474354875432960", "478633725534666752", "439020448710262784", "448776874492035083", "448775229381279774" ]
+            users: []
 ```
-
-You need to enter your bot token for the bot to function. You can find it on https://discordapp.com/developers/applications/me
-
------------------------------
-
-```json
-"prefix": "+"
-```
-
-The command prefix for this bot, you can change it to for instance ! for !join or - for -join depending on other bots clashing with the current prefix.
-
------------------------------
-
-```json
-"avatarURL": "https://karlofduty.com/img/tardisIcon.jpg"
-```
-
-This is either the path or url designating the avatar you want the bot to have. Default is my github avatar.
-
------------------------------
-
-```json
-"roles": [
-  { "scp": "SCP:SL Player" },
-  { "dystopia": "Dystopia Player" },
-  { "ttt": "TTT Player" }
-]
-```
-
-This is a list of all roles you want your members to be able to access with these commands. The first value in each pair is the keyword members use in their commands, such as `+join scp`. The second value is the name of the Discord role they should be given. Members can also use `+join all` or `+leave all`. You can also add to these using the `addrole` command.
-
--------------------------------
