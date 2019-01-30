@@ -78,13 +78,13 @@ function pingCommand(message, roleTag)
 
             if (role.mentionable)
             {
-                message.channel.send(role);
+                message.channel.send("<@&" + role.id + ">");
             }
             else
             {
                 role.setMentionable(true).then(() =>
                 {
-                    message.channel.send(role).then(() =>
+                    message.channel.send("<@&" + role.id + ">").then(() =>
                     {
                         role.setMentionable(false).catch(() =>
                         {
@@ -103,7 +103,6 @@ function pingCommand(message, roleTag)
                 {
                     message.channel.send("```diff\n- Error occured, does the bot have permission to manage that role?```");
                 });
-                message.channel.send("```diff\n+ Role \"" + role.name + "\" revoked.```");
             }
         }
     }
