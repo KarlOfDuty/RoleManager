@@ -228,7 +228,6 @@ function hasPermission(message, command)
             return true;
         }
     }
-    message.channel.send("```diff\n- You are not allowed to do that.```");
     return false;
 }
 
@@ -253,15 +252,15 @@ discordClient.on("message", (message) =>
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
-    // Abort if no permission
-    if (!hasPermission(message, command))
-    {
-        return;
-    }
-
     switch(command)
     {
         case "join":
+            // Abort if no permission
+            if (!hasPermission(message, command))
+            {
+                message.channel.send("```diff\n- You are not allowed to do that.```");
+                return;
+            }
             if (!args.length)
             {
                 return message.channel.send("```diff\n- You didn't specify a role.```");
@@ -269,6 +268,12 @@ discordClient.on("message", (message) =>
             manageUser(message, args.shift().toLowerCase(), true);
             break;
         case "leave":
+            // Abort if no permission
+            if (!hasPermission(message, command))
+            {
+                message.channel.send("```diff\n- You are not allowed to do that.```");
+                return;
+            }
             if (!args.length)
             {
                 return message.channel.send("```diff\n- You didn't specify a role.```");
@@ -276,6 +281,12 @@ discordClient.on("message", (message) =>
             manageUser(message, args.shift().toLowerCase(), false);
             break;
         case "ping":
+            // Abort if no permission
+            if (!hasPermission(message, command))
+            {
+                message.channel.send("```diff\n- You are not allowed to do that.```");
+                return;
+            }
             if (!args.length)
             {
                 return message.channel.send("```diff\n- You didn't specify a role.```");
@@ -283,6 +294,12 @@ discordClient.on("message", (message) =>
             pingCommand(message, args.shift().toLowerCase());
             break;
         case "addrole":
+            // Abort if no permission
+            if (!hasPermission(message, command))
+            {
+                message.channel.send("```diff\n- You are not allowed to do that.```");
+                return;
+            }
             if (args.length < 2)
             {
                 return message.channel.send("```diff\n- Missing arguments.```");
@@ -294,6 +311,12 @@ discordClient.on("message", (message) =>
             addRoleCommand(message, args.shift().toLowerCase(), args.join(" "));
             break;
         case "removerole":
+            // Abort if no permission
+            if (!hasPermission(message, command))
+            {
+                message.channel.send("```diff\n- You are not allowed to do that.```");
+                return;
+            }
             if (!args.length)
             {
                 return message.channel.send("```diff\n- You didn't specify a role command to remove.```");
@@ -305,6 +328,12 @@ discordClient.on("message", (message) =>
             removeRoleCommand(message, args.shift().toLowerCase());
             break;
         case "help":
+            // Abort if no permission
+            if (!hasPermission(message, command))
+            {
+                message.channel.send("```diff\n- You are not allowed to do that.```");
+                return;
+            }
             helpCommand(message);
             break;
     }
