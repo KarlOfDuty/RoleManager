@@ -9,6 +9,12 @@ const discordClient = new Discord.Client();
 
 function manageUser(message, roleTag, addRole)
 {
+    if (message.member == null)
+    {
+        message.channel.send("```diff\n- Discord claims you don't exist so rip you I guess.```");
+        return;
+    }
+
     var doesNotExist = true;
     //Finds the role the user requested from the config
     for (var i = 0; i < roles.length; i++)
