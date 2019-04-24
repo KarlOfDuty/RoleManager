@@ -206,7 +206,7 @@ function addRoleCommand(message, command, role)
 
 function hasPermission(message, command)
 {
-    if (!commands[command])
+    if (!commands[command] || message.member == null)
     {
         return false;
     }
