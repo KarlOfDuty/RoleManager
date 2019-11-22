@@ -1,4 +1,4 @@
-RoleManager [![Release](https://img.shields.io/github/release/KarlofDuty/RoleManager.svg)](https://github.com/KarlOfDuty/RoleManager/releases) [![Downloads](https://img.shields.io/github/downloads/KarlOfDuty/RoleManager/total.svg)](https://github.com/KarlOfDuty/RoleManager/releases) [![Discord Server](https://img.shields.io/discord/430468637183442945.svg?label=discord)](https://discord.gg/C5qMvkj)  [![Patreon](https://img.shields.io/badge/patreon-donate-orange.svg)](https://patreon.com/karlofduty)
+RoleManager [![Release](https://img.shields.io/github/release/KarlofDuty/RoleManager.svg)](https://github.com/KarlOfDuty/RoleManager/releases) [![Downloads](https://img.shields.io/github/downloads/KarlOfDuty/RoleManager/total.svg)](https://github.com/KarlOfDuty/RoleManager/releases) [![Discord Server](https://img.shields.io/discord/430468637183442945.svg?label=discord)](https://discord.gg/C5qMvkj)
 ======
 A Discord bot which allows users to add or remove roles using commands.
 
