@@ -24,12 +24,12 @@ pipeline {
       parallel {
         stage('Linux') {
           steps {
-            archiveArtifacts(artifacts: 'Linux-x64/SupportBoi', caseSensitive: true)
+            archiveArtifacts(artifacts: 'Linux-x64/RoleManager', caseSensitive: true)
           }
         }
         stage('Windows') {
           steps {
-            archiveArtifacts(artifacts: 'Windows-x64/SupportBoi.exe', caseSensitive: true)
+            archiveArtifacts(artifacts: 'Windows-x64/RoleManager.exe', caseSensitive: true)
           }
         }
       }
