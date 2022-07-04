@@ -15,6 +15,11 @@ public class RoleManager
 
 	static void Main()
 	{
+		Console.CancelKeyPress += delegate
+		{
+			discordClient.DisconnectAsync();
+		};
+		
 		MainAsync().GetAwaiter().GetResult();
 	}
 
@@ -52,6 +57,7 @@ public class RoleManager
 		
 		Logger.Log(LogID.CONFIG, "Loading config \"" + Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + "config.yml\"");
 		Config.LoadConfig();
+		Roles.LoadRoles();
 		
 		// Check if token is unset
 		if (Config.token == "<add-token-here>" || Config.token == "")
@@ -90,6 +96,11 @@ public class RoleManager
 		commands = discordClient.UseSlashCommands();
 
 		commands.RegisterCommands<JoinCommand>();
+		commands.RegisterCommands<AddRoleCommand>();
+		commands.RegisterCommands<RemoveRoleCommand>();
+		commands.RegisterCommands<LeaveCommand>();
+		commands.RegisterCommands<PingCommand>();
+		commands.RegisterCommands<ListRolesCommand>();
 
 		Logger.Log(LogID.GENERAL, "Hooking command events...");
 		commands.SlashCommandErrored += EventHandler.OnCommandError;
@@ -97,32 +108,9 @@ public class RoleManager
 		Logger.Log(LogID.GENERAL, "Connecting to Discord...");
 		await discordClient.ConnectAsync();
 	}
-	
-	public static async Task<bool> VerifyPermission(InteractionContext command, string permission)
-	{
-		try
-		{
-			// Check if the user has permission to use this command.
-			if (!Config.HasPermission(command.Member, permission))
-			{
-				await command.CreateResponseAsync(new DiscordEmbedBuilder
-				{
-					Color = DiscordColor.Red,
-					Description = "You do not have permission to use this command."
-				});
-				return false;
-			}
 
-			return true;
-		}
-		catch (Exception)
-		{
-			await command.CreateResponseAsync(new DiscordEmbedBuilder
-			{
-				Color = DiscordColor.Red,
-				Description = "Error occured when checking permissions, please report this to the developer."
-			});
-			return false;
-		}
+	public static async void ReloadCommands()
+	{
+		await commands.RefreshCommands();
 	}
 }

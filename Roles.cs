@@ -1,33 +1,41 @@
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
+using Newtonsoft.Json;
 
 namespace RoleManager;
 
 public class Roles
 {
-	public class SavedRole
+	public static List<ulong> savedRoles = new List<ulong>();
+
+	public static void LoadRoles()
 	{
-		public ulong roleID = 0;
-		public string alias = "";
+		if (!File.Exists("./roles.json"))
+		{
+			File.WriteAllText("./roles.json", "[]");
+		}
+		
+		string jsonString = File.ReadAllText("./roles.json");
+
+		savedRoles = JsonConvert.DeserializeObject<List<ulong>>(jsonString) ?? new List<ulong>();
 	}
 
-	public static List<SavedRole> savedRoles = new List<SavedRole>();
-
-	public class RoleChoiceProvider : IChoiceProvider
+	public static void SaveRoles()
 	{
-		public async Task<IEnumerable<DiscordApplicationCommandOptionChoice>> Provider()
-		{
-			DiscordGuild guild = await RoleManager.discordClient.GetGuildAsync(Config.serverID);
+		File.WriteAllText("./roles.json", JsonConvert.SerializeObject(savedRoles));
+	}
 
-			List<DiscordApplicationCommandOptionChoice> roleChoices = new List<DiscordApplicationCommandOptionChoice>();
-			foreach (SavedRole savedRole in savedRoles)
-			{
-				if (guild.Roles.ContainsKey(savedRole.roleID))
-				{
-					roleChoices.Add(new DiscordApplicationCommandOptionChoice(guild.Roles[savedRole.roleID].Name, savedRole.alias));
-				}
-			}
-			return roleChoices;
-		}
+	public static void AddRole(ulong roleID)
+	{
+		savedRoles.Add(roleID);
+		SaveRoles();
+		RoleManager.ReloadCommands();
+	}
+
+	public static void RemoveRole(ulong roleID)
+	{
+		savedRoles.Remove(roleID);
+		SaveRoles();
+		RoleManager.ReloadCommands();
 	}
 }

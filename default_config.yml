@@ -20,7 +20,7 @@ permissions:
     # Public commands
     join: []
     leave: []
-    help: []
+    listroles: []
     # Moderator commands
     ping: []
     # Admin commands

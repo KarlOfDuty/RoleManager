@@ -1,6 +1,7 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
+using DSharpPlus.Exceptions;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.SlashCommands.Attributes;
 using DSharpPlus.SlashCommands.EventArgs;
@@ -48,30 +49,34 @@ namespace RoleManager
 			switch (e.Exception)
 			{
 				case SlashExecutionChecksFailedException checksFailedException:
+				{
+					foreach (SlashCheckBaseAttribute attr in checksFailedException.FailedChecks)
 					{
-						foreach (SlashCheckBaseAttribute attr in checksFailedException.FailedChecks)
-						{
-							DiscordEmbed error = new DiscordEmbedBuilder
-							{
-								Color = DiscordColor.Red,
-								Description = ParseFailedCheck(attr)
-							};
-							e.Context?.Channel?.SendMessageAsync(error);
-						}
-						return Task.CompletedTask;
-					}
-
-				default:
-					{
-						Logger.Error(LogID.COMMAND, "Exception occured: " + e.Exception.GetType() + ": " + e.Exception);
 						DiscordEmbed error = new DiscordEmbedBuilder
 						{
 							Color = DiscordColor.Red,
-							Description = "Internal error occured, please report this to the developer."
+							Description = ParseFailedCheck(attr)
 						};
-						e.Context?.Channel?.SendMessageAsync(error);
-						return Task.CompletedTask;
+						e.Context.CreateResponseAsync(error);
 					}
+					return Task.CompletedTask;
+				}
+				default:
+				{
+					Logger.Error(LogID.COMMAND, "Exception occured: " + e.Exception.GetType() + ": " + e.Exception);
+					if (e.Exception is UnauthorizedException ex)
+					{
+						Logger.Error(LogID.DISCORD, ex.WebResponse.Response);
+					}
+					
+					DiscordEmbed error = new DiscordEmbedBuilder
+					{
+						Color = DiscordColor.Red,
+						Description = "Internal error occured, please report this to the developer."
+					};
+					e.Context.CreateResponseAsync(error);
+					return Task.CompletedTask;
+				}
 			}
 		}
 
@@ -91,6 +96,8 @@ namespace RoleManager
 					return "You don't have permission to do that!";
 				case SlashRequireGuildAttribute _:
 					return "This command has to be used in a Discord server!";
+				case Config.ConfigPermissionCheckAttribute _:
+					return "You don't have permission to use this command!";
 				default:
 					return "Unknown Discord API error occured, please try again later.";
 			}

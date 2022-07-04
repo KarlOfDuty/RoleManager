@@ -1,20 +1,44 @@
-﻿using System;
-using System.Threading.Tasks;
-using DSharpPlus;
+﻿using DSharpPlus;
 using DSharpPlus.Entities;
+using DSharpPlus.Exceptions;
 using DSharpPlus.SlashCommands;
-using Microsoft.Extensions.Logging;
+using DSharpPlus.SlashCommands.Attributes;
 
 namespace RoleManager.Commands;
 
 public class JoinCommand : ApplicationCommandModule
 {
+	[SlashRequireGuild]
+	[Config.ConfigPermissionCheckAttribute("join")]
+	[SlashRequireBotPermissions(Permissions.ManageRoles)]
 	[SlashCommand("join", "Joins a Discord role")]
-	public async Task OnExecute(InteractionContext command, [ChoiceProvider(typeof(Roles.RoleChoiceProvider))][Option("Role", "The alias of the role you want to join.")] string roleAlias)
+	public async Task OnExecute(InteractionContext command, [Option("Role", "The role you want to join.")] DiscordRole role)
 	{
-		if (!await RoleManager.VerifyPermission(command, "join")) return;
+		if (Roles.savedRoles.All(savedRole => savedRole != role.Id))
+		{
+			await command.CreateResponseAsync(new DiscordEmbedBuilder
+			{
+				Color = DiscordColor.Red,
+				Description = "It is not possible to request that role."
+			});
+			return;
+		}
 
-		// TODO: Implement
+		try
+		{
+			await command.Member.GrantRoleAsync(role);
+		}
+		catch (UnauthorizedException)
+		{
+			
+		}
+		
+		
+		await command.CreateResponseAsync(new DiscordEmbedBuilder
+		{
+			Color = DiscordColor.Green,
+			Description = "Role granted."
+		});
 	}
 }
 
