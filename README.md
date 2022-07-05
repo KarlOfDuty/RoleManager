@@ -4,77 +4,51 @@ A Discord bot which allows users to add or remove roles using commands.
 
 ## Commands
 
-`join <tag>` - Grants a member the role represented by this tag.
+`/addrole <role>` - Adds a role to the bot so users can join it.
 
-`leave <tag>` - Removes a role from that member.
+`/removerole <role>` - Removes a role from the bot so users can no longer join it.
 
-`help` - Shows a help window with command information.
+`/createroleselector` - Creates a role selector message like in the image below:
 
-![](readmeImage.jpg)
+![](readmeImage.png)
 
-`addrole <new tag> <role name>` - Adds a new role command to the bot.
-
-`removerole <tag>` - Removes a role command from the bot.
-
-`ping <tag>` - Pings an unpingable role (Requires manage roles permission).
+`/ping <role>` - Pings a role which would normally be un-pingable. Role must be added as joinable in the bot.
 
 ## Installation
 
-1. Install Node either by direct download: https://nodejs.org/en/download/ or via package manager in linux distros: https://nodejs.org/en/download/package-manager/
-2. Set up your config according to the guide below.
-3. Run either via start.bat/start.sh or by entering `node <path to root dir>` in the terminal.
-
-If it complains that it cannot find all components you may need to run `npm install discord.js` and `npm install discord.js` in the bot folder.
-
-I also recommend having a look at [pm2](http://pm2.keymetrics.io/) to manage node.js scripts such as this one. It will restart them if they crash and let you easily stop and start them.
+1. Install .NET 6
+2. [Create a new bot application](https://discordpy.readthedocs.io/en/latest/discord.html). You don't have to select and permission for the bot in the setup but you do need to add the application intents on the bot page and `applications.commands` in the OAuth page when you create the invite link.
+3. Download the bot for your operating system, either a [release version](https://github.com/KarlOfDuty/RoleManager/releases) or a [dev build](https://jenkins.karlofduty.com/blue/organizations/jenkins/RoleManager/activity)
+4. Run `./RoleManager` on Linux or `./RoleManager.exe` on Windows.
+5. Set up the config (`config.yml`) to your specifications, there are instructions inside and also further down on this page. If you need more help either contact me in Discord or through an issue here.
 
 ## Config settings
 
 This is the default included config:
 ```yaml
-### The following is the config settings I personally use as an example on how to set it up.
+bot:
+  # Bot token.
+  token: "<add-token-here>"
+  # ID of the Discord server
+  server-id: 000000000000000000
+  # Decides what messages are shown in console
+  # Possible values are: Critical, Error, Warning, Information, Debug.
+  console-log-level: "Information"
+  # Sets the type of activity for the bot to display in its presence status
+  # Possible values are: Playing, Streaming, ListeningTo, Watching, Competing
+  presence-type: "ListeningTo"
+  # Sets the activity text shown in the bot's status
+  presence-text: "/join"
 
-# Your bot token
-token: ""
-
-# Prefix for discord commands
-prefix: "+"
-
-# Sends more console messages
-verbose: false
-
-# Sets which channels users can use commands in and which users have permission to use the commands.
-# Permissions can be given to Discord roles and individual Discord users. All of the config arrays use IDs, not names.
-# Set to "*" to allow everything.
-commands:
-    join:
-        channels: [ "449876787162251285" ]
-        permissions:
-            roles: [ "*" ]
-            users: []
-    leave:
-        channels: [ "449876787162251285" ]
-        permissions:
-            roles: [ "*" ]
-            users: []
-    help:
-        channels: [ "449876787162251285" ]
-        permissions:
-            roles: [ "*" ]
-            users: []
-    addrole:
-        channels: [ "*" ]
-        permissions:
-            roles: [ "430474354875432960", "478633725534666752", "439020448710262784", "448776874492035083", "448775229381279774" ]
-            users: []
-    removerole:
-        channels: [ "*" ]
-        permissions:
-            roles: [ "430474354875432960", "478633725534666752", "439020448710262784", "448776874492035083", "448775229381279774" ]
-            users: []
-    ping:
-        channels: [ "*" ]
-        permissions:
-            roles: [ "430474354875432960", "478633725534666752", "439020448710262784", "448776874492035083", "448775229381279774" ]
-            users: []
+# Set up which roles are allowed to use different commands.
+# Example:
+#   join: [ 000000000000000000, 111111111111111111 ]
+# They are grouped into suggested command groups below for first time setup.
+permissions:
+  # Moderator commands
+  ping: []
+  # Admin commands
+  addrole: []
+  removerole: []
+  createroleselector: []
 ```
