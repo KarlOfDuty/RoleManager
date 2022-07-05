@@ -33,6 +33,7 @@ public class CreateRoleSelectorCommand : ApplicationCommandModule
 		List<DiscordRole> savedRoles = guild.Roles.Where(rolePair => Roles.savedRoles.Contains(rolePair.Key))
 			.Select(rolePair => rolePair.Value).ToList();
 		
+		savedRoles = savedRoles.OrderBy(x => x.Name).ToList();
 		List<DiscordSelectComponent> selectionComponents = new List<DiscordSelectComponent>();
 		int selectionOptions = 0;
 		for (int selectionBoxes = 0; selectionBoxes < 5 && selectionOptions < savedRoles.Count; selectionBoxes++)
