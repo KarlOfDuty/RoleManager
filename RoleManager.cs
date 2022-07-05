@@ -95,12 +95,10 @@ public class RoleManager
 		Logger.Log(LogID.GENERAL, "Registering commands...");
 		commands = discordClient.UseSlashCommands();
 
-		commands.RegisterCommands<JoinCommand>();
 		commands.RegisterCommands<AddRoleCommand>();
 		commands.RegisterCommands<RemoveRoleCommand>();
-		commands.RegisterCommands<LeaveCommand>();
 		commands.RegisterCommands<PingCommand>();
-		commands.RegisterCommands<ListRolesCommand>();
+		commands.RegisterCommands<CreateRoleSelectorCommand>();
 
 		Logger.Log(LogID.GENERAL, "Hooking command events...");
 		commands.SlashCommandErrored += EventHandler.OnCommandError;

@@ -91,29 +91,36 @@ namespace RoleManager
 						{
 							return;
 						}
-						if (ulong.TryParse(e.Interaction.Data.Values.FirstOrDefault(), out ulong roleID))
+
+						if (e.Interaction.Data.Values.Length == 0)
 						{
+							await e.Interaction.CreateResponseAsync(InteractionResponseType.UpdateMessage, new DiscordInteractionResponseBuilder().WithContent(e.Message.Content).AddComponents(e.Message.Components));
+						}
+						
+						foreach (string stringID in e.Interaction.Data.Values)
+						{
+							if (!ulong.TryParse(stringID, out ulong roleID) || roleID == 0) continue;
+
 							DiscordMember member = await e.Guild.GetMemberAsync(e.User.Id);
-							if (e.Guild.Roles.ContainsKey(roleID) && member != null)
+							if (!e.Guild.Roles.ContainsKey(roleID) || member == null) continue;
+
+							if (member.Roles.Any(role => role.Id == roleID))
 							{
-								if (member.Roles.Any(role => role.Id == roleID))
+								await member.RevokeRoleAsync(e.Guild.Roles[roleID]);
+								await e.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(new DiscordEmbedBuilder
 								{
-									await member.RevokeRoleAsync(e.Guild.Roles[roleID]);
-	                                await e.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(new DiscordEmbedBuilder
-	                                {
-	                                    Color = DiscordColor.Green,
-	                                    Description = "Revoked role " + e.Guild.Roles[roleID].Mention + "!"
-	                                }).AsEphemeral());
-								}
-								else
+									Color = DiscordColor.Green,
+									Description = "Revoked role " + e.Guild.Roles[roleID].Mention + "!"
+								}).AsEphemeral());
+							}
+							else
+							{
+								await member.GrantRoleAsync(e.Guild.Roles[roleID]);
+								await e.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(new DiscordEmbedBuilder
 								{
-									await member.GrantRoleAsync(e.Guild.Roles[roleID]);
-                                    await e.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(new DiscordEmbedBuilder
-                                    {
-                                    	Color = DiscordColor.Green,
-                                    	Description = "Granted role " + e.Guild.Roles[roleID].Mention + "!"
-                                    }).AsEphemeral());
-								}
+									Color = DiscordColor.Green,
+									Description = "Granted role " + e.Guild.Roles[roleID].Mention + "!"
+								}).AsEphemeral());
 							}
 						}
 						break;
@@ -131,7 +138,6 @@ namespace RoleManager
 					Color = DiscordColor.Red,
 					Description = "The bot doesn't have the required permissions to do that!"
 				}).AsEphemeral());
-				return;
 			}
 			catch (Exception ex)
 			{
