@@ -17,12 +17,9 @@ bot:
 #   join: [ 000000000000000000, 111111111111111111 ]
 # They are grouped into suggested command groups below for first time setup.
 permissions:
-    # Public commands
-    join: []
-    leave: []
-    listroles: []
     # Moderator commands
     ping: []
     # Admin commands
     addrole: []
     removerole: []
+    createroleselector: []

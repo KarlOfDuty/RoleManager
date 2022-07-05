@@ -19,6 +19,11 @@ public class CreateRoleSelectorCommand : ApplicationCommandModule
 		}
 		
 		await command.Channel.SendMessageAsync(builder);
+		await command.CreateResponseAsync(new DiscordEmbedBuilder
+		{
+			Color = DiscordColor.Green,
+			Description = "Successfully created message, make sure to run this command again if you add new roles to the bot."
+		}, true);
 	}
 	
 	public static async Task<List<DiscordSelectComponent>> GetSelectComponents()

@@ -17,9 +17,7 @@ namespace RoleManager
 
 		private static Dictionary<string, ulong[]> permissions = new Dictionary<string, ulong[]>
 		{
-			{ "join",		new ulong[]{ } },
-			{ "leave",		new ulong[]{ } },
-            { "listroles",	new ulong[]{ } },
+            { "createroleselector",	new ulong[]{ } },
 			{ "addrole",    new ulong[]{ } },
 			{ "removerole",	new ulong[]{ } },
 			{ "ping",		new ulong[]{ } }
