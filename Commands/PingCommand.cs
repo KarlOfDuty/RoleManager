@@ -18,7 +18,7 @@ public class PingCommand : ApplicationCommandModule
 			{
 				Color = DiscordColor.Red,
 				Description = "This role cannot be pinged."
-			});
+			}, true);
 			return;
 		}
 		

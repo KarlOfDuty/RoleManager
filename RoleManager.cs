@@ -1,6 +1,5 @@
 using System.Reflection;
 using DSharpPlus;
-using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using Microsoft.Extensions.Logging;
 using RoleManager.Commands;
@@ -91,6 +90,7 @@ public class RoleManager
 		discordClient.Ready += EventHandler.OnReady;
 		discordClient.GuildAvailable += EventHandler.OnGuildAvailable;
 		discordClient.ClientErrored += EventHandler.OnClientError;
+		discordClient.ComponentInteractionCreated += EventHandler.OnComponentInteractionCreated;
 		
 		Logger.Log(LogID.GENERAL, "Registering commands...");
 		commands = discordClient.UseSlashCommands();

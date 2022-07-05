@@ -17,7 +17,7 @@ public class AddRoleCommand : ApplicationCommandModule
 			{
 				Color = DiscordColor.Red,
 				Description = "That role is already enabled."
-			});
+			}, true);
 			return;
 		}
 		
@@ -27,7 +27,7 @@ public class AddRoleCommand : ApplicationCommandModule
 			{
 				Color = DiscordColor.Red,
 				Description = "That role doesn't exist."
-			});
+			}, true);
 			return;
 		}
 
@@ -37,6 +37,6 @@ public class AddRoleCommand : ApplicationCommandModule
 		{
 			Color = DiscordColor.Green,
 			Description = "Role added."
-		});
+		}, true);
 	}
 }

@@ -80,6 +80,70 @@ namespace RoleManager
 			}
 		}
 
+		internal static async Task OnComponentInteractionCreated(DiscordClient client, ComponentInteractionCreateEventArgs e)
+		{
+			try
+			{
+				switch (e.Interaction.Data.ComponentType)
+				{
+					case ComponentType.Select:
+						if (!e.Interaction.Data.CustomId.StartsWith("rolemanager_togglerole"))
+						{
+							return;
+						}
+						if (ulong.TryParse(e.Interaction.Data.Values.FirstOrDefault(), out ulong roleID))
+						{
+							DiscordMember member = await e.Guild.GetMemberAsync(e.User.Id);
+							if (e.Guild.Roles.ContainsKey(roleID) && member != null)
+							{
+								if (member.Roles.Any(role => role.Id == roleID))
+								{
+									await member.RevokeRoleAsync(e.Guild.Roles[roleID]);
+	                                await e.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(new DiscordEmbedBuilder
+	                                {
+	                                    Color = DiscordColor.Green,
+	                                    Description = "Revoked role " + e.Guild.Roles[roleID].Mention + "!"
+	                                }).AsEphemeral());
+								}
+								else
+								{
+									await member.GrantRoleAsync(e.Guild.Roles[roleID]);
+                                    await e.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(new DiscordEmbedBuilder
+                                    {
+                                    	Color = DiscordColor.Green,
+                                    	Description = "Granted role " + e.Guild.Roles[roleID].Mention + "!"
+                                    }).AsEphemeral());
+								}
+							}
+						}
+						break;
+
+					case ComponentType.ActionRow:
+					case ComponentType.Button:
+					case ComponentType.FormInput:
+						return;
+				}
+			}
+			catch (UnauthorizedException ex)
+			{
+				await e.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(new DiscordEmbedBuilder
+				{
+					Color = DiscordColor.Red,
+					Description = "The bot doesn't have the required permissions to do that!"
+				}).AsEphemeral());
+				return;
+			}
+			catch (Exception ex)
+			{
+				Logger.Error(LogID.COMMAND, "Exception occured: " + ex.GetType() + ": " + ex);
+				await e.Interaction.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed( new DiscordEmbedBuilder
+                {
+                	Color = DiscordColor.Red,
+                	Description = "Internal interaction error occured, please report this to the developer."
+                }).AsEphemeral());
+			}
+		}
+		
 		private static string ParseFailedCheck(SlashCheckBaseAttribute attr)
 		{
 			switch (attr)

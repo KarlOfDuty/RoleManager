@@ -17,7 +17,7 @@ public class RemoveRoleCommand : ApplicationCommandModule
 			{
 				Color = DiscordColor.Red,
 				Description = "That role is already disabled."
-			});
+			}, true);
 			return;
 		}
 		
@@ -27,7 +27,7 @@ public class RemoveRoleCommand : ApplicationCommandModule
 			{
 				Color = DiscordColor.Red,
 				Description = "That role doesn't exist."
-			});
+			}, true);
 			return;
 		}
 
@@ -37,6 +37,6 @@ public class RemoveRoleCommand : ApplicationCommandModule
 		{
 			Color = DiscordColor.Green,
 			Description = "Role removed."
-		});
+		}, true);
 	}
 }
