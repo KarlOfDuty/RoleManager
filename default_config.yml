@@ -10,11 +10,11 @@ bot:
     # Possible values are: Playing, Streaming, ListeningTo, Watching, Competing
     presence-type: "ListeningTo"
     # Sets the activity text shown in the bot's status
-    presence-text: "/join"
+    presence-text: "role requests"
 
 # Set up which roles are allowed to use different commands.
 # Example:
-#   join: [ 000000000000000000, 111111111111111111 ]
+#   ping: [ 000000000000000000, 111111111111111111 ]
 # They are grouped into suggested command groups below for first time setup.
 permissions:
     # Moderator commands
