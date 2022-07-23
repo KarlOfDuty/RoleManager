@@ -22,10 +22,12 @@ public class PingCommand : ApplicationCommandModule
 			return;
 		}
 		
-		await command.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().WithContent(role.Mention).AddEmbed(new DiscordEmbedBuilder
-		{
-			Color = DiscordColor.Green,
-			Description = "Ping brought to you by " + command.Member.Mention + "!"
-		}));
+		await command.Channel.SendMessageAsync(role.Mention, new DiscordEmbedBuilder
+	    {
+	        Color = DiscordColor.Green,
+	        Description = "Ping brought to you by " + command.Member.Mention + "!"
+	    });
+		
+		await command.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().WithContent("Done! :ok_hand:").AsEphemeral());
 	}
 }
