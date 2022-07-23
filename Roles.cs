@@ -29,13 +29,11 @@ public class Roles
 	{
 		savedRoles.Add(roleID);
 		SaveRoles();
-		RoleManager.ReloadCommands();
 	}
 
 	public static void RemoveRole(ulong roleID)
 	{
 		savedRoles.Remove(roleID);
 		SaveRoles();
-		RoleManager.ReloadCommands();
 	}
 }

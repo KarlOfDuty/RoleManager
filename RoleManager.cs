@@ -106,9 +106,4 @@ public class RoleManager
 		Logger.Log(LogID.GENERAL, "Connecting to Discord...");
 		await discordClient.ConnectAsync();
 	}
-
-	public static async void ReloadCommands()
-	{
-		await commands.RefreshCommands();
-	}
 }
