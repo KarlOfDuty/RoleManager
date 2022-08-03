@@ -152,25 +152,17 @@ namespace RoleManager
 		
 		private static string ParseFailedCheck(SlashCheckBaseAttribute attr)
 		{
-			switch (attr)
+			return attr switch
 			{
-				case SlashRequireDirectMessageAttribute _:
-					return "This command can only be used in direct messages!";
-				case SlashRequireOwnerAttribute _:
-					return "Only the server owner can use that command!";
-				case SlashRequirePermissionsAttribute _:
-					return "You don't have permission to do that!";
-				case SlashRequireBotPermissionsAttribute _:
-					return "The bot doesn't have the required permissions to do that!";
-				case SlashRequireUserPermissionsAttribute _:
-					return "You don't have permission to do that!";
-				case SlashRequireGuildAttribute _:
-					return "This command has to be used in a Discord server!";
-				case Config.ConfigPermissionCheckAttribute _:
-					return "You don't have permission to use this command!";
-				default:
-					return "Unknown Discord API error occured, please try again later.";
-			}
+				SlashRequireDirectMessageAttribute _ => "This command can only be used in direct messages!",
+				SlashRequireOwnerAttribute _ => "Only the server owner can use that command!",
+				SlashRequirePermissionsAttribute _ => "You don't have permission to do that!",
+				SlashRequireBotPermissionsAttribute _ => "The bot doesn't have the required permissions to do that!",
+				SlashRequireUserPermissionsAttribute _ => "You don't have permission to do that!",
+				SlashRequireGuildAttribute _ => "This command has to be used in a Discord server!",
+				Config.ConfigPermissionCheckAttribute _ => "You don't have permission to use this command!",
+				_ => "Unknown Discord API error occured, please try again later."
+			};
 		}
 	}
 }

@@ -9,7 +9,7 @@ public class AddRoleCommand : ApplicationCommandModule
 	[SlashRequireGuild]
 	[Config.ConfigPermissionCheckAttribute("addrole")]
 	[SlashCommand("addrole", "Adds a Discord role to the bot")]
-	public async Task OnExecute(InteractionContext command, [Option("Role", "ID of the role you want to add.")] DiscordRole role)
+	public async Task OnExecute(InteractionContext command, [Option("Role", "The role you want to add.")] DiscordRole role)
 	{
 		if (Roles.savedRoles.Any(savedRole => savedRole == role.Id))
 		{
