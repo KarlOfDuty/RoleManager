@@ -6,7 +6,9 @@
 4. Turn on all intents in the bot tab: 
 
 ![Image showing a Discord selection box](img/botPage.png)
+
 4. Generate an invite link in the OAuth2 tab with the following scopes (bot permissions do not matter in this step):
 
 ![Image showing a Discord selection box](img/botScopes.png)
+
 6. Invite the bot using the invite link generated at the bottom.
