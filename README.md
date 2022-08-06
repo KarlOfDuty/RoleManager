@@ -17,7 +17,7 @@ Also includes a command for mods to ping specific roles which are normally unpin
 ## Installation
 
 1. Install .NET 6 if it doesn't already exist on your system.
-2. [Create a new bot application](docs/CreateBot.md).
+2. [Create a new bot application and invite it to your server](docs/CreateBot.md).
 3. Go to `Settings->Integrations->Bot->Command Permissions` and turn off command access for the everyone role.
 4. Download the bot for your operating system, either a [release version](https://github.com/KarlOfDuty/RoleManager/releases) or a [dev build](https://jenkins.karlofduty.com/blue/organizations/jenkins/RoleManager/activity)
 5. Run `./RoleManager` on Linux or `./RoleManager.exe` on Windows to generate the config.
