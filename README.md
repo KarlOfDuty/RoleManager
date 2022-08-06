@@ -10,7 +10,7 @@ A Discord bot which allows users to add or remove roles using commands.
 
 `/createroleselector` - Creates a role selector message like in the image below:
 
-![](readmeImage.png)
+![Image showing a Discord selection box](readmeImage.png)
 
 `/ping <role>` - Pings a role which would normally be un-pingable. Role must be added as joinable in the bot.
 
@@ -27,28 +27,16 @@ A Discord bot which allows users to add or remove roles using commands.
 This is the default included config:
 ```yaml
 bot:
-  # Bot token.
-  token: "<add-token-here>"
-  # ID of the Discord server
-  server-id: 000000000000000000
-  # Decides what messages are shown in console
-  # Possible values are: Critical, Error, Warning, Information, Debug.
-  console-log-level: "Information"
-  # Sets the type of activity for the bot to display in its presence status
-  # Possible values are: Playing, Streaming, ListeningTo, Watching, Competing
-  presence-type: "ListeningTo"
-  # Sets the activity text shown in the bot's status
-  presence-text: "role requests"
-
-# Set up which roles are allowed to use different commands.
-# Example:
-#   ping: [ 000000000000000000, 111111111111111111 ]
-# They are grouped into suggested command groups below for first time setup.
-permissions:
-  # Moderator commands
-  ping: []
-  # Admin commands
-  addrole: []
-  removerole: []
-  createroleselector: []
+    # Bot token.
+    token: "<add-token-here>"
+    # ID of the Discord server
+    server-id: 000000000000000000
+    # Decides what messages are shown in console
+    # Possible values are: Critical, Error, Warning, Information, Debug.
+    console-log-level: "Information"
+    # Sets the type of activity for the bot to display in its presence status
+    # Possible values are: Playing, Streaming, ListeningTo, Watching, Competing
+    presence-type: "ListeningTo"
+    # Sets the activity text shown in the bot's status
+    presence-text: "role requests"
 ```
