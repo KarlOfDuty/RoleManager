@@ -18,11 +18,12 @@ Also includes a command for mods to ping specific roles which are normally unpin
 
 1. Install .NET 6 if it doesn't already exist on your system.
 2. [Create a new bot application](docs/CreateBot.md).
-3. Download the bot for your operating system, either a [release version](https://github.com/KarlOfDuty/RoleManager/releases) or a [dev build](https://jenkins.karlofduty.com/blue/organizations/jenkins/RoleManager/activity)
-4. Run `./RoleManager` on Linux or `./RoleManager.exe` on Windows to generate the config.
-5. Set up the config to your specifications, there are instructions inside.
-6. Restart the bot.
-7. Go to `Settings->Integrations->Bot->Command Permissions` in your Discord server to set up permissions for the commands.
+3. Go to `Settings->Integrations->Bot->Command Permissions` and turn off command access for the everyone role.
+4. Download the bot for your operating system, either a [release version](https://github.com/KarlOfDuty/RoleManager/releases) or a [dev build](https://jenkins.karlofduty.com/blue/organizations/jenkins/RoleManager/activity)
+5. Run `./RoleManager` on Linux or `./RoleManager.exe` on Windows to generate the config.
+6. Set up the config to your specifications, there are instructions inside.
+7. Restart the bot.
+8. Go to `Settings->Integrations->Bot->Command Permissions` in your Discord server to set up permissions for the commands.
 
 **If you need more help either contact me in Discord or through an issue here.**
 
