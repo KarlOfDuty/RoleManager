@@ -1,26 +1,30 @@
-RoleManager [![Release](https://img.shields.io/github/release/KarlofDuty/RoleManager.svg)](https://github.com/KarlOfDuty/RoleManager/releases) [![Downloads](https://img.shields.io/github/downloads/KarlOfDuty/RoleManager/total.svg)](https://github.com/KarlOfDuty/RoleManager/releases) [![Discord Server](https://img.shields.io/discord/430468637183442945.svg?label=discord)](https://discord.gg/C5qMvkj)
-======
-A Discord bot which allows users to add or remove roles using commands.
+# RoleManager [![Release](https://img.shields.io/github/release/KarlofDuty/RoleManager.svg)](https://github.com/KarlOfDuty/RoleManager/releases) [![Downloads](https://img.shields.io/github/downloads/KarlOfDuty/RoleManager/total.svg)](https://github.com/KarlOfDuty/RoleManager/releases) [![Discord Server](https://img.shields.io/discord/430468637183442945.svg?label=discord)](https://discord.gg/C5qMvkj)
+
+A Discord bot which allows users to join and leave roles using a selection box.
+
+![Image showing a Discord selection box](docs/img/selectionBox.png)
+
+Also includes a command for mods to ping specific roles which are normally unpingable.
 
 ## Commands
-
-`/addrole <role>` - Adds a role to the bot so users can join it.
-
-`/removerole <role>` - Removes a role from the bot so users can no longer join it.
-
-`/createroleselector` - Creates a role selector message like in the image below:
-
-![Image showing a Discord selection box](readmeImage.png)
-
-`/ping <role>` - Pings a role which would normally be un-pingable. Role must be added as joinable in the bot.
+| Command               | Description                                                                                  |
+|-----------------------|----------------------------------------------------------------------------------------------|
+| `/addrole <role>`     | Adds a role to the bot so users can join it.                                                 |
+| `/removerole <role>`  | Removes a role from the bot so users can no longer join it.                                  |
+| `/createroleselector` | Creates a role selector message like in the image above.                                     |
+| `/ping <role>`        | Pings a role which would normally be un-pingable. Role must be added as joinable in the bot. |
 
 ## Installation
 
-1. Install .NET 6
-2. [Create a new bot application](https://discordpy.readthedocs.io/en/latest/discord.html). You don't have to select and permission for the bot in the setup but you do need to add the application intents on the bot page and `applications.commands` in the OAuth page when you create the invite link.
+1. Install .NET 6 if it doesn't already exist on your system.
+2. [Create a new bot application](docs/CreateBot.md).
 3. Download the bot for your operating system, either a [release version](https://github.com/KarlOfDuty/RoleManager/releases) or a [dev build](https://jenkins.karlofduty.com/blue/organizations/jenkins/RoleManager/activity)
-4. Run `./RoleManager` on Linux or `./RoleManager.exe` on Windows.
-5. Set up the config (`config.yml`) to your specifications, there are instructions inside and also further down on this page. If you need more help either contact me in Discord or through an issue here.
+4. Run `./RoleManager` on Linux or `./RoleManager.exe` on Windows to generate the config.
+5. Set up the config to your specifications, there are instructions inside.
+6. Restart the bot.
+7. Go to `Settings->Integrations->Bot->Command Permissions` in your Discord server to set up permissions for the commands.
+
+**If you need more help either contact me in Discord or through an issue here.**
 
 ## Config settings
 
