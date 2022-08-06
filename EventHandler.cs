@@ -160,7 +160,6 @@ namespace RoleManager
 				SlashRequireBotPermissionsAttribute _ => "The bot doesn't have the required permissions to do that!",
 				SlashRequireUserPermissionsAttribute _ => "You don't have permission to do that!",
 				SlashRequireGuildAttribute _ => "This command has to be used in a Discord server!",
-				Config.ConfigPermissionCheckAttribute _ => "You don't have permission to use this command!",
 				_ => "Unknown Discord API error occured, please try again later."
 			};
 		}

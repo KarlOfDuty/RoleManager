@@ -7,7 +7,6 @@ namespace RoleManager.Commands;
 public class RemoveRoleCommand : ApplicationCommandModule
 {
 	[SlashRequireGuild]
-	[Config.ConfigPermissionCheckAttribute("removerole")]
 	[SlashCommand("removerole", "Removes a Discord role from the bot")]
 	public async Task OnExecute(InteractionContext command, [Option("Role", "The role you want to remove.")] DiscordRole role)
 	{

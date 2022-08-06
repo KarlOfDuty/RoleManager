@@ -7,7 +7,6 @@ namespace RoleManager.Commands;
 public class CreateRoleSelectorCommand : ApplicationCommandModule
 {
 	[SlashRequireGuild]
-	[Config.ConfigPermissionCheckAttribute("createroleselector")]
 	[SlashCommand("createroleselector", "Creates a selection box which users can use to get new roles.")]
 	public async Task OnExecute(InteractionContext command)
 	{

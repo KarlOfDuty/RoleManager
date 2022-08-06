@@ -8,7 +8,6 @@ namespace RoleManager.Commands;
 public class PingCommand : ApplicationCommandModule
 {
 	[SlashRequireGuild]
-	[Config.ConfigPermissionCheckAttribute("ping")]
 	[SlashCommand("ping", "Mentions a Discord role registered with the bot.")]
 	public async Task OnExecute(InteractionContext command, [Option("Role", "The role you want to mention.")] DiscordRole role)
 	{

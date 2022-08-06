@@ -7,7 +7,6 @@ namespace RoleManager.Commands;
 public class AddRoleCommand : ApplicationCommandModule
 {
 	[SlashRequireGuild]
-	[Config.ConfigPermissionCheckAttribute("addrole")]
 	[SlashCommand("addrole", "Adds a Discord role to the bot")]
 	public async Task OnExecute(InteractionContext command, [Option("Role", "The role you want to add.")] DiscordRole role)
 	{

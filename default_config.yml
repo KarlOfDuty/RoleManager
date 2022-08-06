@@ -11,15 +11,3 @@ bot:
     presence-type: "ListeningTo"
     # Sets the activity text shown in the bot's status
     presence-text: "role requests"
-
-# Set up which roles are allowed to use different commands.
-# Example:
-#   ping: [ 000000000000000000, 111111111111111111 ]
-# They are grouped into suggested command groups below for first time setup.
-permissions:
-    # Moderator commands
-    ping: []
-    # Admin commands
-    addrole: []
-    removerole: []
-    createroleselector: []
