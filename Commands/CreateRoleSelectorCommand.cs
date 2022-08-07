@@ -12,7 +12,7 @@ public class CreateRoleSelectorCommand : ApplicationCommandModule
 	{
 		DiscordMessageBuilder builder = new DiscordMessageBuilder().WithContent("Use this to join or leave public roles:");
 
-		foreach (DiscordSelectComponent component in await GetSelectComponents())
+		foreach (DiscordSelectComponent component in await GetSelectComponents(command))
 		{
 			builder.AddComponents(component);
 		}
@@ -25,11 +25,9 @@ public class CreateRoleSelectorCommand : ApplicationCommandModule
 		}, true);
 	}
 	
-	public static async Task<List<DiscordSelectComponent>> GetSelectComponents()
+	public static async Task<List<DiscordSelectComponent>> GetSelectComponents(InteractionContext command)
 	{
-		DiscordGuild guild = await RoleManager.discordClient.GetGuildAsync(Config.serverID);
-		
-		List<DiscordRole> savedRoles = guild.Roles.Where(rolePair => Roles.savedRoles.Contains(rolePair.Key))
+		List<DiscordRole> savedRoles = command.Guild.Roles.Where(rolePair => Roles.savedRoles.Contains(rolePair.Key))
 			.Select(rolePair => rolePair.Value).ToList();
 		
 		savedRoles = savedRoles.OrderBy(x => x.Name).ToList();

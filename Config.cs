@@ -13,7 +13,6 @@ namespace RoleManager
 		internal static string logLevel = "Information";
 		internal static string presenceType = "Playing";
 		internal static string presenceText = "";
-		internal static ulong serverID = 0;
 		
 		public static void LoadConfig()
 		{
@@ -39,7 +38,6 @@ namespace RoleManager
 			logLevel = json.SelectToken("bot.console-log-level").Value<string>() ?? "";
 			presenceType = json.SelectToken("bot.presence-type")?.Value<string>() ?? "Playing";
 			presenceText = json.SelectToken("bot.presence-text")?.Value<string>() ?? "";
-			serverID = json.SelectToken("bot.server-id")?.Value<ulong>() ?? 0;
 		}
 	}
 }

@@ -1,8 +1,6 @@
 bot:
     # Bot token.
     token: "<add-token-here>"
-    # ID of the Discord server
-    server-id: 000000000000000000
     # Decides what messages are shown in console
     # Possible values are: Critical, Error, Warning, Information, Debug.
     console-log-level: "Information"
