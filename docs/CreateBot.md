@@ -1,9 +1,13 @@
 # Creating a bot application
 
 1. [Open the Discord developer portal](https://discord.com/developers/applications).
-2. Craete a new application in the top right corner.
-3. Click add bot in the bot tab. 
-4. Turn on all intents in the bot tab: 
+2. Create a new application in the top right corner.
+3. Click add bot in the bot tab.
+4. Turn off public status in the bot tab:
+
+![Image showing a Discord selection box](img/botPublic.png)
+
+5. Turn on all intents in the bot tab: 
 
 ![Image showing a Discord selection box](img/botPage.png)
 
