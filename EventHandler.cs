@@ -68,7 +68,7 @@ namespace RoleManager
 					{
 						Logger.Error(LogID.DISCORD, ex.WebResponse.Response);
 					}
-					
+
 					DiscordEmbed error = new DiscordEmbedBuilder
 					{
 						Color = DiscordColor.Red,
@@ -86,7 +86,7 @@ namespace RoleManager
 			{
 				switch (e.Interaction.Data.ComponentType)
 				{
-					case ComponentType.Select:
+					case ComponentType.StringSelect:
 						if (!e.Interaction.Data.CustomId.StartsWith("rolemanager_togglerole"))
 						{
 							return;
@@ -96,7 +96,7 @@ namespace RoleManager
 						{
 							await e.Interaction.CreateResponseAsync(InteractionResponseType.UpdateMessage, new DiscordInteractionResponseBuilder().WithContent(e.Message.Content).AddComponents(e.Message.Components));
 						}
-						
+
 						foreach (string stringID in e.Interaction.Data.Values)
 						{
 							if (!ulong.TryParse(stringID, out ulong roleID) || roleID == 0) continue;
@@ -149,7 +149,7 @@ namespace RoleManager
                 }).AsEphemeral());
 			}
 		}
-		
+
 		private static string ParseFailedCheck(SlashCheckBaseAttribute attr)
 		{
 			return attr switch
