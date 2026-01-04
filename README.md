@@ -1,4 +1,7 @@
-# RoleManager [![Build Status](https://jenkins.karlofduty.com/job/DiscordBots/job/RoleManager/job/master/badge/icon)](https://jenkins.karlofduty.com/blue/organizations/jenkins/DiscordBots%2FRoleManager/activity) [![Release](https://img.shields.io/github/release/KarlofDuty/RoleManager.svg)](https://github.com/KarlOfDuty/RoleManager/releases) [![Downloads](https://img.shields.io/github/downloads/KarlOfDuty/RoleManager/total.svg)](https://github.com/KarlOfDuty/RoleManager/releases) [![Discord Server](https://img.shields.io/discord/430468637183442945.svg?label=discord)](https://discord.gg/C5qMvkj)
+# RoleManager [![Release](https://img.shields.io/github/release/KarlofDuty/RoleManager.svg)](https://github.com/KarlOfDuty/RoleManager/releases) [![Discord Server](https://img.shields.io/discord/430468637183442945.svg?label=discord)](https://discord.gg/C5qMvkj)
+
+> [!CAUTION]
+> **This repo is obsolete. Please go to the new repo here instead: [RoleBoi](https://github.com/KarlOfDuty/RoleBoi)**
 
 A Discord bot which allows users to join and leave roles using a selection box.
 
